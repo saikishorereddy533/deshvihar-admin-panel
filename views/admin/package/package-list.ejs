@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Gym Package - Fitlife</title>
+    
+        <!-- 
+          - favicon
+        -->
+        <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.css">
+    
+        <!-- 
+          - custom css link
+        -->
+        <link rel="stylesheet" href="/css/style.css">
+    
+        <!-- 
+          - google font link
+        -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+            rel="stylesheet">
+    
+        <!-- 
+          - preload images
+        -->
+        <link rel="preload" as="image" href="/images/hero-banner.png">
+        <link rel="preload" as="image" href="/images/hero-circle-one.png">
+        <link rel="preload" as="image" href="/images/hero-circle-two.png">
+        <link rel="preload" as="image" href="/images/heart-rate.svg">
+        <link rel="preload" as="image" href="/images/calories.svg">
+<style>
+    /* Package List Styles */
+    .package-list-section {
+            background-color: hsl(210, 50%, 4%);
+            padding: 40px 0;
+            color: #fff;
+        }
+
+        .package-list-container {
+            max-width: 1200px;
+            margin: auto;
+            margin-top: 4%;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .package-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .package-table th,
+        .package-table td {
+            border: 1px solid #fff;
+            padding: 10px;
+        }
+
+        .package-table th {
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .package-table td {
+            text-align: center;
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 10px auto;
+            display: block;
+            width: 200px;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background-color: #555;
+        }
+        @media (max-width: 768px) {
+            .package-table {
+                font-size: 14px;
+            }
+        }
+</style>
+    </head>
+    
+<body id="top">
+    <!-- Include the NavBar component -->
+    <%- include('../../includes/navbar.ejs') %>
+    
+    <main>
+        <article>
+            <section class="section package-list-section">
+                <div class="package-list-container">
+                    <h2 class="section-title">Available Gym Packages</h2>
+                    <table class="package-table">
+                        <thead>
+                            <tr>
+                                <th>Package Name</th>
+                                <th>Price</th>
+                                <th>Days</th>
+                                <th>Training Type</th>
+                                <th>Package Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% packages.forEach(function(package) { %>
+                                <tr>
+                                    <td><%- package.name %></td>
+                                    <td><%- package.price %></td>
+                                    <td><%- package.days %> days</td>
+                                    <td><%- package.trainingType %></td>
+                                    <td><%- package.packageType %></td>
+                                    <td>
+                                        <button class="btn btn-secondary edit-package-btn" data-package-id="<%- package._id %>">Edit</button>
+                                        <button class="btn btn-danger delete-package-btn" data-package-id="<%- package._id %>">Delete</button>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                    <a href="/create-package" class="btn btn-primary">Add New Package</a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+      <!-- Include the Footer component -->
+      <%- include('../../includes/footer.ejs') %>
+
+      <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+          <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+      </a>
+      <!-- Add SweetAlert2 CSS and JS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.all.min.js"></script>
+
+      <script src="/js/script.js" defer></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          // Function to open the edit package popup
+          function openEditPackagePopup(packageId) {
+            // Fetch the package details by packageId from your server
+            fetch(`/packages/${packageId}`)
+              .then((response) => response.json())
+              .then((package) => {
+                Swal.fire({
+                  title: 'Edit Package',
+                  html:
+                        `<div id="edit-package-form" style="max-width: 600px; margin: 0 auto;">
+                            <div class="form-group" style="margin: 20px 0;">
+                            <label for="name">Package Name</label>
+                            <input type="text" id="name" name="name" value="${package.name}" required style="width: 100%; padding: 10px;">
+                            </div>
+                            <div class="form-group" style="margin: 20px 0;">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" value="${package.price}" required style="width: 100%; padding: 10px;">
+                            </div>
+                            <div class="form-group" style="margin: 20px 0;">
+                            <label for="days">Duration (in days)</label>
+                            <input type="number" id="days" name="days" value="${package.days}" required style="width: 100%; padding: 10px;">
+                            </div>
+                            <div class="form-group" style="margin: 20px 0;">
+                            <label for="trainingType">Training Type</label>
+                            <select id="trainingType" name="trainingType" required style="width: 100%; padding: 10px;">
+                                <option value="General" ${package.trainingType === 'General' ? 'selected' : ''}>General</option>
+                                <option value="Personal" ${package.trainingType === 'Personal' ? 'selected' : ''}>Personal</option>
+                            </select>
+                            </div>
+                            <div class="form-group" style="margin: 20px 0;">
+                            <label for="packageType">Package Type</label>
+                            <select id="packageType" name="packageType" required style="width: 100%; padding: 10px;">
+                                <option value="Main" ${package.packageType === 'Main' ? 'selected' : ''}>Main</option>
+                                <option value="Add On" ${package.packageType === 'Add On' ? 'selected' : ''}>Add On</option>
+                            </select>
+                            </div>
+                        </div>`,
+
+                  showCancelButton: true,
+                  confirmButtonText: 'Save Changes',
+                  showLoaderOnConfirm: true,
+                  preConfirm: () => {
+                    // Handle form submission here
+                    const editPackageForm = document.getElementById('edit-package-form');
+                    const formData = {
+                      name: editPackageForm.querySelector('#name').value,
+                      price: editPackageForm.querySelector('#price').value,
+                      days: editPackageForm.querySelector('#days').value,
+                      trainingType: editPackageForm.querySelector('#trainingType').value,
+                      packageType: editPackageForm.querySelector('#packageType').value,
+                    };
+    
+                    return fetch(`/packages/${packageId}`, {
+                      method: 'PUT',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(formData),
+                    })
+                      .then((response) => {
+                        if (!response.ok) {
+                          throw new Error('Failed to update the package.');
+                        }
+                        return response.json();
+                      })
+                      .catch((error) => {
+                        Swal.showValidationMessage(`Update Failed: ${error}`);
+                      });
+                  },
+                  allowOutsideClick: false,
+                })
+                  .then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire('Package Updated!', '', 'success');
+                      window.location.reload()
+                      // You can update the table data on success or reload the page
+                      // Example: You may reload the page using window.location.reload()
+                    }
+                  });
+              })
+              .catch((error) => {
+                console.error('Error fetching package details:', error);
+              });
+          }
+    
+          // Function to handle the click event for editing a package
+          document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('edit-package-btn')) {
+              e.preventDefault();
+              const packageId = e.target.getAttribute('data-package-id');
+              openEditPackagePopup(packageId);
+            }
+          });
+    
+          // Function to handle the click event for deleting a package
+          document.body.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-package-btn')) {
+              e.preventDefault();
+              const packageId = e.target.getAttribute('data-package-id');
+              // Add your delete package logic here, and confirm with a Swal before deleting
+              Swal.fire({
+                title: 'Delete Package',
+                text: 'Are you sure you want to delete this package?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Delete',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Handle the package deletion and inform the user
+                  // You can also update the table data or reload the page
+                  // Example: You may reload the page using window.location.reload()
+                  Swal.fire('Package Deleted!', '', 'success');
+                }
+              });
+            }
+          });
+        });
+    </script>    
+</body>
+</html>

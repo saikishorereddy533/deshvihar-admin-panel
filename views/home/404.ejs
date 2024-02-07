@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitlife - Page Not Found</title>
+
+    <!-- 
+      - favicon
+    -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <!-- 
+      - custom css link
+    -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- 
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+        rel="stylesheet">
+    
+   <style>
+    /* Error Page Styles */
+        .error-section {
+            background-color: hsl(210, 50%, 4%);
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .error-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #555;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .error-title {
+                font-size: 36px;
+            }
+            .error-message {
+                font-size: 20px;
+            }
+            .btn-primary {
+                padding: 8px 16px;
+            }
+        }
+
+   </style>
+</head>
+
+<body id="top">
+
+    <!-- Include the NavBar component -->
+    <%- include('../includes/navbar.ejs') %>
+
+    <main>
+        <article>
+            <section class="section error-section">
+                <div class="container">
+                    <div class="error-content">
+                        <h1 class="error-title">404 - Page Not Found</h1>
+                        <p class="error-message">Oops! The page you are looking for does not exist.</p>
+                        <a href="/" class="btn btn-primary">Go to Home</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Include the Footer component -->
+    <%- include('../includes/footer.ejs') %>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="/js/script.js" defer></script>
+
+    <!-- 
+      - ionicon link
+    -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeshVihaar</title>
+  
+    <!-- 
+      - favicon
+    -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  
+    <!-- 
+      - custom css link
+    -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+  
+    <!-- 
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+      rel="stylesheet">
+  
+    <!-- 
+      - preload images
+    -->
+    <link rel="preload" as="image" href="/images/hero-banner.png">
+    <link rel="preload" as="image" href="/images/hero-circle-one.png">
+    <link rel="preload" as="image" href="/images/hero-circle-two.png">
+    <link rel="preload" as="image" href="/images/heart-rate.svg">
+    <link rel="preload" as="image" href="/images/calories.svg">
+</head>
+
+<body id="top">
+
+
+    <main>
+        <article>
+            <section class="section login-section ">
+                <div class="container">
+                    <div class="login-form">
+                        <h2 class="form-title">Login</h2>
+                        <form action="/auth/login" method="POST">
+                            <div class="form-group">
+                                <label for="username">Email</label>
+                                <input type="text" id="username" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Include the Footer component -->
+    <%- include('../includes/footer.ejs') %>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+    </a>
+
+  <script src="/js/script.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

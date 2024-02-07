@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User - Fitlife</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap" rel="stylesheet">
+
+    <!-- Preload Images -->
+    <link rel="preload" as="image" href="/images/hero-banner.png">
+    <link rel="preload" as="image" href="/images/hero-circle-one.png">
+    <link rel="preload" as="image" href="/images/hero-circle-two.png">
+    <link rel="preload" as="image" href="/images/heart-rate.svg">
+    <link rel="preload" as="image" href="/images/calories.svg">
+    <style>
+     /* User Form Styles */
+.create-user-section {
+    background-color: hsl(210, 50%, 4%);
+    padding: 40px 0;
+    color: #fff;
+}
+
+.c-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 6%;
+    padding: 0 20px;
+}
+
+.create-user-form {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 20px;
+}
+
+.create-user-form h2 {
+    color: #333;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 0 0 48%;
+    margin: 0 10px;
+}
+
+.form-group label {
+    display: block;
+    color: #555;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group select,
+.form-group input[type="password"],
+.form-group checkbox {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Error Message Styles */
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+    </style>
+</head>
+<body id="top">
+    <!-- Include the NavBar component -->
+    <%- include('../../includes/navbar.ejs') %>
+
+    <main>
+        <article>
+            <section class="section create-user-section">
+                <div class="c-container">
+                    <div class="create-user-form">
+                        <h2 class="form-title">Create User</h2>
+                        <form  id="user-form" method="post">
+                            <div class="form-group">
+                                <label for="profileImage">Profile Image (Optional)</label>
+                                <input type="file" id="profileImage" name="profileImage" accept="image/*">
+                            </div>     
+                            <div id="selectedImageName" style="color: #333;"></div>                       
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email (Optional)</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="text" id="phoneNumber" name="phoneNumber" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth (Optional)</label>
+                                <input type="date" id="dob" name="dob">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (Optional)</label>
+                                <input type="number" id="weight" name="weight">
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Height (Optional)</label>
+                                <input type="number" id="height" name="height">
+                            </div>
+                            <div class="form-group">
+                                <label for="sourceOfKnowingGYm">Source of Knowing Gym</label>
+                                <select id="sourceOfKnowingGYm" name="sourceOfKnowingGYm" required>
+                                    <option value="Socialmedia">Social Media</option>
+                                    <option value="Google">Google</option>
+                                    <option value="WOM">Word of Mouth</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address (Optional)</label>
+                                <input type="text" id="address" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="package">Package (Optional)</label>
+                                <select id="package" name="package">
+                                    <!-- Dropdown options will be dynamically added here -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="membershipStartDate">Membership Start Date</label>
+                                <input type="date" id="membershipStartDate" name="membershipStartDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="membershipEndDate">Membership End Date</label>
+                                <input type="date" id="membershipEndDate" name="membershipEndDate" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <button type="submit" id="submit-button" class="btn btn-primary">Create User</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="load_animation" style="display:none;">
+                    <ion-icon name="earth-outline" class="animation"></ion-icon>
+                  </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Include the Footer component -->
+    <%- include('../../includes/footer.ejs') %>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+    </a>
+
+    <!-- Custom JS (if needed) -->
+    <script src="/js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.all.min.js"></script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+    let packages; // Declare packages in the broader scope
+
+    // Fetch packages from the backend
+    fetch('/get-packages')
+        .then((response) => response.json())
+        .then((fetchedPackages) => {
+            packages = fetchedPackages; // Assign the fetched packages to the broader scope variable
+
+            const packageDropdown = document.getElementById('package');
+
+            // Populate the dropdown with package options
+            packages.forEach((package) => {
+                const option = document.createElement('option');
+                option.value = package._id; // You may want to use a unique identifier for the value
+                option.text = package.name; // Display the package name
+                packageDropdown.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching packages:', error);
+        });
+
+    // Fetch packages and populate the package dropdown (as shown in the previous response)
+
+    const membershipStartDate = document.getElementById('membershipStartDate');
+    const packageDropdown = document.getElementById('package');
+    const membershipEndDate = document.getElementById('membershipEndDate');
+
+    function updateEndDate() {
+        const selectedPackageId = packageDropdown.value; // Get the selected package ID
+        if (!selectedPackageId) return; // If no package is selected, do nothing
+
+        // Fetch the selected package data based on the ID (make an API request if needed)
+        const selectedPackage = packages.find((package) => package._id === selectedPackageId);
+
+        if (!selectedPackage || !membershipStartDate.value) return; // Check if data is available
+
+        // Calculate the end date based on the start date and the package's number of days
+        const startDate = new Date(membershipStartDate.value);
+        const numberOfDays = selectedPackage.days;
+        const endDate = new Date(startDate.getTime() + numberOfDays * 24 * 60 * 60 * 1000); // Calculate the end date
+
+        // Format the end date as YYYY-MM-DD (the format expected by the input type="date")
+        const endDateString = endDate.toISOString().split('T')[0];
+
+        // Set the calculated end date in the "Membership End Date" input field
+        membershipEndDate.value = endDateString;
+    }
+
+    // Listen for changes in the "Membership Start Date" and "Package" fields
+    membershipStartDate.addEventListener('change', updateEndDate);
+    packageDropdown.addEventListener('change', updateEndDate);
+});
+
+
+    const form = document.getElementById('user-form');
+    const submitButton = document.getElementById('submit-button');
+    const spinner = document.querySelector('#load_animation');
+
+    // Handle form submission
+    submitButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const formData = new FormData();
+
+        // Append form fields to the FormData
+        formData.append('name', form.querySelector('#name').value);
+        formData.append('email', form.querySelector('#email').value);
+        formData.append('phoneNumber', form.querySelector('#phoneNumber').value);
+        formData.append('dob', form.querySelector('#dob').value);
+        formData.append('gender', form.querySelector('#gender').value);
+        formData.append('weight', form.querySelector('#weight').value);
+        formData.append('height', form.querySelector('#height').value);
+        formData.append('sourceOfKnowingGYm', form.querySelector('#sourceOfKnowingGYm').value);
+        formData.append('address', form.querySelector('#address').value);
+        formData.append('package', form.querySelector('#package').value);
+        formData.append('membershipStartDate', form.querySelector('#membershipStartDate').value);
+        formData.append('membershipStartDate', form.querySelector('#membershipEndDate').value);
+        formData.append('password', form.querySelector('#password').value);
+
+        // Append the image file to the FormData
+        const fileInput = form.querySelector('#profileImage');
+        if (fileInput.files.length > 0) {
+            formData.append('profileImage', fileInput.files[0]);
+        }
+        spinner.style.display = 'flex';
+        // Make a POST request to your server
+        fetch('/create-member', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            spinner.style.display = 'none';
+            Swal.fire({
+                title: 'User Created',
+                text: data.message, // Assuming your server returns a message
+                icon: 'success',
+            });
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error',
+                text: 'An error occurred while creating the user.',
+                icon: 'error',
+            });
+        });
+    });
+
+
+
+   const fileInput = document.getElementById('profileImage');
+    const selectedImageName = document.getElementById('selectedImageName');
+
+    // Add an event listener to the file input
+    fileInput.addEventListener('change', function (e) {
+        // Check if a file has been selected
+        if (fileInput.files.length > 0) {
+            // Get the selected file's name
+            const fileName = fileInput.files[0].name;
+            // Update the text in the selectedImageName element
+            selectedImageName.textContent = `Selected Image: ${fileName}`;
+        } else {
+            // If no file is selected, clear the text
+            selectedImageName.textContent = '';
+        }
+    });
+   </script>
+</body>
+</html>

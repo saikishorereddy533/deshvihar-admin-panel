@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Gym Package - Fitlife</title>
+
+    <!-- 
+      - favicon
+    -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.css">
+
+    <!-- 
+      - custom css link
+    -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/package.css">
+
+    <!-- 
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+        rel="stylesheet">
+
+    <!-- 
+      - preload images
+    -->
+    <link rel="preload" as="image" href="/images/hero-banner.png">
+    <link rel="preload" as="image" href="/images/hero-circle-one.png">
+    <link rel="preload" as="image" href="/images/hero-circle-two.png">
+    <link rel="preload" as="image" href="/images/heart-rate.svg">
+    <link rel="preload" as="image" href="/images/calories.svg">
+</head>
+
+<body id="top">
+
+    <!-- Include the NavBar component -->
+    <%- include('../../includes/navbar.ejs') %>
+
+    <main>
+        <article>
+            <section class="section create-package-section">
+                <div class="c-container">
+                    <div class="create-package-form">
+                        <h2 class="form-title">Create Gym Package</h2>
+                        <form id="package-form" method="POST">
+                            <div class="form-group">
+                                <label for="name">Package Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="text" id="price" name="price" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="days">Duration (in days)</label>
+                                <input type="text" id="days" name="days" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="trainingType">Training Type</label>
+                                <select id="trainingType" name="trainingType" required>
+                                    <option value="General">General</option>
+                                    <option value="Personal">Personal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="packageType">Package Type</label>
+                                <select id="packageType" name="packageType" required>
+                                    <option value="Main">Main</option>
+                                    <option value="Add-On">Add On</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Package</button>
+                        </form>                        
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Include the Footer component -->
+    <%- include('../../includes/footer.ejs') %>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="/js/script.js" defer></script>
+
+    <!-- 
+      - ionicon link
+    -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Add these links in your HTML head section -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const packageForm = document.getElementById('package-form');
+    
+            packageForm.addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+    
+                // Get the form input values
+                const name = document.getElementById('name').value;
+                const price = document.getElementById('price').value;
+                const days = document.getElementById('days').value;
+                const trainingType = document.getElementById('trainingType').value;
+                const packageType = document.getElementById('packageType').value;
+    
+                // Create an object with the form data
+                const packageData = {
+                    name,
+                    price,
+                    days,
+                    trainingType,
+                    packageType
+                };
+    
+                fetch('/packages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // Set the content type to JSON
+                    },
+                    body: JSON.stringify(packageData) // Convert the data to JSON format
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // If the request is successful, show a success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Package Created Successfully',
+                            showConfirmButton: false,
+                            timer: 1500 // Auto-close the success message after 1.5 seconds
+                        });
+    
+                        // You can also redirect the user to another page if needed
+                        // window.location.href = '/success-page';
+                    })
+                    .catch(error => {
+                        // If the request fails, show an error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Package Creation Failed',
+                            text: error.message // Display the error message
+                        });
+                    });
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

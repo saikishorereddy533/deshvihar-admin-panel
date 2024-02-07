@@ -1,0 +1,73 @@
+/* Main Content Styles */
+.login-section {
+    background-color: hsl(210, 50%, 4%);
+    color: #fff; /* Set text color to white for better contrast */
+}
+
+.login-form {
+    max-width: 400px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+    padding: 20px;
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #fff; /* Set label text color to white */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none; /* Remove border */
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+    color: #fff; /* Set text color to white */
+    margin-top: 5px; /* Add some spacing between input fields */
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Set placeholder text color to a lighter white */
+}
+
+button.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add a smooth color transition */
+
+}
+
+button.btn-primary:hover {
+    background-color: #555; /* Change button color on hover */
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .login-section {
+        margin: 10px;
+        padding: 10px;
+    }
+    .login-form{
+        margin-top: 40%;
+    }
+}

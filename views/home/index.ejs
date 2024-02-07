@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeshVihaar - States</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <!-- Custom CSS links -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/states.css">
+
+    <!-- Google Font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Preload images -->
+    <link rel="preload" as="image" href="/images/hero-banner.png">
+
+    <!-- Add a script for handling state selection -->
+    <script src="/js/state-selection.js" defer></script>
+    <style>
+      /* Add your general styling here */
+body {
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+/* Add specific styling for the state list */
+.states-section {
+    background-color: #f8f8f8;
+}
+
+.section-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.state-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.state-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.state-list li:hover {
+    background-color: #e0e0e0;
+}
+    </style>
+</head>
+
+<body id="top">
+    <main>
+      <%- include('../includes/navbar.ejs') %>
+        <article>
+            <section class="section states-section">
+                <div class="container">
+                    <h2 class="section-title">List of States in India</h2>
+
+                    <ul class="state-list" id="stateList">
+                      <li data-state="Andhra Pradesh">Andhra Pradesh</li>
+                      <li data-state="Arunachal Pradesh">Arunachal Pradesh</li>
+                      <li data-state="Assam">Assam</li>
+                      <li data-state="Bihar">Bihar</li>
+                      <li data-state="Chhattisgarh">Chhattisgarh</li>
+                      <li data-state="Goa">Goa</li>
+                      <li data-state="Gujarat">Gujarat</li>
+                      <li data-state="Haryana">Haryana</li>
+                      <li data-state="Himachal Pradesh">Himachal Pradesh</li>
+                      <li data-state="Jharkhand">Jharkhand</li>
+                      <li data-state="Karnataka">Karnataka</li>
+                      <li data-state="Kerala">Kerala</li>
+                      <li data-state="Madhya Pradesh">Madhya Pradesh</li>
+                      <li data-state="Maharashtra">Maharashtra</li>
+                      <li data-state="Manipur">Manipur</li>
+                      <li data-state="Meghalaya">Meghalaya</li>
+                      <li data-state="Mizoram">Mizoram</li>
+                      <li data-state="Nagaland">Nagaland</li>
+                      <li data-state="Odisha">Odisha</li>
+                      <li data-state="Punjab">Punjab</li>
+                      <li data-state="Rajasthan">Rajasthan</li>
+                      <li data-state="Sikkim">Sikkim</li>
+                      <li data-state="Tamil Nadu">Tamil Nadu</li>
+                      <li data-state="Telangana">Telangana</li>
+                      <li data-state="Tripura">Tripura</li>
+                      <li data-state="Uttar Pradesh">Uttar Pradesh</li>
+                      <li data-state="Uttarakhand">Uttarakhand</li>
+                      <li data-state="West Bengal">West Bengal</li>
+                      <li data-state="Andaman and Nicobar Islands">Andaman and Nicobar Islands</li>
+                      <li data-state="Chandigarh">Chandigarh</li>
+                      <li data-state="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</li>
+                      <li data-state="Lakshadweep">Lakshadweep</li>
+                      <li data-state="Delhi">Delhi</li>
+                      <li data-state="Puducherry">Puducherry</li>
+                  </ul>
+                  
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Include the Footer component -->
+    <%- include('../includes/footer.ejs') %>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+    </a>
+
+    <!-- Include the script for handling API calls -->
+    <script src="/js/api-call.js" defer></script>
+
+    <!-- Ionicon link -->
+    <script type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const stateList = document.getElementById('stateList');
+
+            stateList.addEventListener('click', function (event) {
+                const selectedState = event.target.dataset.state;
+
+                // Call a function to handle the selection (e.g., make an API call)
+                handleStateSelection(selectedState);
+            });
+
+            function handleStateSelection(selectedState) {
+                // You can perform actions here, such as making an API call to the backend
+                console.log(`Selected State: ${selectedState}`);
+                
+                // You can also redirect to a new page with the selected state information
+                window.location.href = `/states/${selectedState}`;
+            }
+        });
+
+        </script>
+</body>
+
+</html>

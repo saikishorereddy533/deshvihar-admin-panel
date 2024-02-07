@@ -1,0 +1,64 @@
+/* Main Content Styles */
+
+.c-container{
+    margin-top: 6%;
+}
+
+.create-package-section {
+    background-color: hsl(210, 50%, 4%);
+    padding: 20px;
+    color: #fff;
+}
+
+.create-package-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f8f8f8;
+    color: #333;
+}
+
+button.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .create-package-section {
+        margin: 10px;
+        padding: 10px;
+    }
+    .c-container{
+        margin-top: 20%;
+    }
+}
