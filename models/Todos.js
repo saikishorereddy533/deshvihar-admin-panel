@@ -10,8 +10,12 @@ const todoTypeSchema = new mongoose.Schema({
 });
 
 const todosSchema = new mongoose.Schema({
-    images: [String], // Array to store image URLs
+    bannerImages: [String], // Array to store image URLs
     ttd: [todoTypeSchema],
+    stateId : {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'State', // Reference to the State model 
+    },
     featureIds: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Feature', // Reference to the Feature model 

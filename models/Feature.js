@@ -10,6 +10,9 @@ const eventSchema = new mongoose.Schema({
   Fee: Number,
   PhnNo: String,
   About: String,
+  Link1 :String,
+  Link2 :String,
+  Link3 :String,
 });
 
 const subFeatureSchema = new mongoose.Schema({ //Festivals,Folks&Crafts,Textiles,...

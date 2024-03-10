@@ -35,6 +35,7 @@ app.use(methodOverride('_method'));
 
 const authRoutes = require("./routes/auth");
 const homeRoutes = require("./routes/home");
+const adminRoutes = require("./routes/admin");
 
 
 app.use(helmet());
@@ -84,9 +85,9 @@ app.use((req, res, next) => {
 });
 app.use(flash());
 
-// app.use("/admin", adminRoutes);
 app.use(homeRoutes);
 app.use("/auth",authRoutes);
+app.use("/admin",adminRoutes);
 app.use(errorController.get404);
 
 

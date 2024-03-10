@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Feature Data</title>
+<style>
+/* Basic styling for the form */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+input, textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Style the add button */
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.subfeature, .event {
+  margin-left: 20px;
+}
+
+.minimize-button {
+  background-color: #f44336;
+}
+
+.minimize-button:hover {
+  background-color: #d32f2f;
+}
+
+.hidden {
+  display: none;
+}
+
+</style>
+</head>
+<body>
+
+    <form id="featureForm" onsubmit="submitForm(event)" type="multipart/form-data">
+        <label for="featureName">Feature Name:</label>
+        <input type="text" id="featureName" name="featureName" required>
+      
+        <label for="icon">Icon:</label>
+        <input type="file" id="icon" name="icon" accept="image/*" required>
+      
+        <div id="subfeatures">
+          <div class="subfeature">
+            <button type="button" class="minimize-button" onclick="toggleVisibility(this)">-</button>
+            <div class="subfeature-content">
+              <label for="subfeatureName">Subfeature Name:</label>
+              <input type="text" name="subfeatureName[]" required>
+              
+              <div class="events">
+                <div class="event">
+                  <button type="button" class="minimize-button" onclick="toggleVisibility(this)">-</button>
+                  <div class="event-content">
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" name="eventName[]" required>
+          
+                    <label for="eventImage">Event Image:</label>
+                    <input type="file" name="eventImage[]" accept="image/*">
+          
+                    <label for="eventCategory">Event Category:</label>
+                    <input type="text" name="eventCategory[]">
+          
+                    <label for="eventOtherlangName">Event Other Language Name:</label>
+                    <input type="text" name="eventOtherlangName[]">
+          
+                    <label for="eventLocationName">Event Location Name:</label>
+                    <input type="text" name="eventLocationName[]">
+          
+                    <label for="eventDate">Event Date:</label>
+                    <input type="date" name="eventDate[]">
+          
+                    <label for="eventFee">Event Fee:</label>
+                    <input type="number" name="eventFee[]">
+          
+                    <label for="eventPhnNo">Event Phone Number:</label>
+                    <input type="text" name="eventPhnNo[]">
+          
+                    <label for="eventAbout">Event About:</label>
+                    <textarea name="eventAbout[]"></textarea>
+
+                    <label for="eventLink">Link 1:</label>
+                    <textarea name="Link1[]"></textarea>
+
+                    <label for="eventLink">Link 2:</label>
+                    <textarea name="Link2[]"></textarea>
+
+                    <label for="eventLink">Link 3:</label>
+                    <textarea name="Link3[]"></textarea>
+                  </div>
+                </div>
+              </div>
+              
+              <button type="button" class="add-button" onclick="addEvent(this)">Add Event</button>
+            </div>
+          </div>
+        </div>
+      
+        <button type="button" class="add-button" onclick="addSubfeature()">Add Subfeature</button>
+      
+        <button type="submit">Submit</button>
+      </form>
+
+<script>
+function addSubfeature() {
+  const subfeatureDiv = document.createElement('div');
+  subfeatureDiv.classList.add('subfeature');
+
+  subfeatureDiv.innerHTML = `
+  <button type="button" class="minimize-button" onclick="toggleVisibility(this)">-</button>
+            <div class="subfeature-content">
+              <label for="subfeatureName">Subfeature Name:</label>
+              <input type="text" name="subfeatureName[]" required>
+              
+              <div class="events">
+                <div class="event">
+                  <button type="button" class="minimize-button" onclick="toggleVisibility(this)">-</button>
+                  <div class="event-content">
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" name="eventName[]" required>
+          
+                    <label for="eventImage">Event Image:</label>
+                    <input type="file" name="eventImage[]" accept="image/*">
+          
+                    <label for="eventCategory">Event Category:</label>
+                    <input type="text" name="eventCategory[]">
+          
+                    <label for="eventOtherlangName">Event Other Language Name:</label>
+                    <input type="text" name="eventOtherlangName[]">
+          
+                    <label for="eventLocationName">Event Location Name:</label>
+                    <input type="text" name="eventLocationName[]">
+          
+                    <label for="eventDate">Event Date:</label>
+                    <input type="date" name="eventDate[]">
+          
+                    <label for="eventFee">Event Fee:</label>
+                    <input type="number" name="eventFee[]">
+          
+                    <label for="eventPhnNo">Event Phone Number:</label>
+                    <input type="text" name="eventPhnNo[]">
+          
+                    <label for="eventAbout">Event About:</label>
+                    <textarea name="eventAbout[]"></textarea>
+                  </div>
+                </div>
+              </div>
+              
+              <button type="button" class="add-button" onclick="addEvent(this)">Add Event</button>
+            </div>
+  `;
+
+  document.getElementById('subfeatures').appendChild(subfeatureDiv);
+}
+
+function addEvent(button) {
+  const eventsDiv = button.previousElementSibling;
+  const eventDiv = document.createElement('div');
+  eventDiv.classList.add('event');
+
+  eventDiv.innerHTML = `
+  <button type="button" class="minimize-button" onclick="toggleVisibility(this)">-</button>
+                  <div class="event-content">
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" name="eventName[]" required>
+          
+                    <label for="eventImage">Event Image:</label>
+                    <input type="file" name="eventImage[]" accept="image/*" required>
+          
+                    <label for="eventCategory">Event Category:</label>
+                    <input type="text" name="eventCategory[]">
+          
+                    <label for="eventOtherlangName">Event Other Language Name:</label>
+                    <input type="text" name="eventOtherlangName[]">
+          
+                    <label for="eventLocationName">Event Location Name:</label>
+                    <input type="text" name="eventLocationName[]">
+          
+                    <label for="eventDate">Event Date:</label>
+                    <input type="date" name="eventDate[]">
+          
+                    <label for="eventFee">Event Fee:</label>
+                    <input type="number" name="eventFee[]">
+          
+                    <label for="eventPhnNo">Event Phone Number:</label>
+                    <input type="text" name="eventPhnNo[]">
+          
+                    <label for="eventAbout">Event About:</label>
+                    <textarea name="eventAbout[]"></textarea>
+                  </div>
+  `;
+
+  eventsDiv.appendChild(eventDiv);
+}
+
+function toggleVisibility(button) {
+  const container = button.nextElementSibling;
+  container.classList.toggle('hidden');
+}
+
+async function submitForm(event) {
+  event.preventDefault();
+  const form = document.getElementById('featureForm');
+
+  const featureData = {
+    name: form.querySelector('#featureName').value,
+    subFeatures: []
+  };
+
+  const subfeatureContainers = form.querySelectorAll('.subfeature');
+  subfeatureContainers.forEach(subfeatureContainer => {
+    const subfeatureData = {
+      name: subfeatureContainer.querySelector('[name="subfeatureName[]"]').value,
+      events: []
+    };
+
+    const eventContainers = subfeatureContainer.querySelectorAll('.event');
+    eventContainers.forEach(eventContainer => {
+      const eventData = {
+        name: eventContainer.querySelector('[name="eventName[]"]').value,
+        category: eventContainer.querySelector('[name="eventCategory[]"]').value,
+        otherlangName: eventContainer.querySelector('[name="eventOtherlangName[]"]').value,
+        LocationName: eventContainer.querySelector('[name="eventLocationName[]"]').value,
+        Date: eventContainer.querySelector('[name="eventDate[]"]').value,
+        Fee: eventContainer.querySelector('[name="eventFee[]"]').value,
+        PhnNo: eventContainer.querySelector('[name="eventPhnNo[]"]').value,
+        About: eventContainer.querySelector('[name="eventAbout[]"]').value
+      };
+      subfeatureData.events.push(eventData);
+    });
+
+    featureData.subFeatures.push(subfeatureData);
+  });
+
+  try {
+    const formData = new FormData();
+    formData.append('featureData', JSON.stringify(featureData));
+    formData.append('icon', form.querySelector('#icon').files[0]);
+    formData.append('stateId', '<%= stateId %>');
+
+    let eventImageIndex = 0;
+    form.querySelectorAll('[name="eventImage[]"]').forEach(input => {
+      formData.append(`eventImage${eventImageIndex++}`, input.files[0]);
+    });
+
+    const response = await fetch('/admin/addFeature/<%=stateId%>', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add feature');
+    }
+
+    alert('Feature added successfully!');
+    form.reset();
+  } catch (error) {
+    console.error('Error:', error.message);
+    alert('Failed to add feature');
+  }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>State Details</title>
+ <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+p {
+  line-height: 1.6;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+li:hover {
+  background-color: #f5f5f5;
+}
+
+button {
+  display: block;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+  button {
+    width: 100%;
+  }
+}
+
+ </style>
+</head>
+<body>
+  <h1><%= state.name %></h1>
+  <p><%= state.overview %></p>
+  <p>Area: <%= state.area %> sq km</p>
+  <p>Languages: <%= state.languages.join(', ') %></p>
+  <p>STD Code: <%= state.stdcode %></p>
+
+  <h2>Modes of Transport</h2>
+  <h3>Air</h3>
+  <ul>
+    <% state.modesOfTransport.air.forEach(airport => { %>
+      <li><%= airport.airportName %> (<%= airport.airportCode %>)</li>
+    <% }); %>
+  </ul>
+
+  <h3>Rail</h3>
+  <ul>
+    <% state.modesOfTransport.rail.forEach(station => { %>
+      <li><%= station.railwayStationName %> (<%= station.railwayStationCode %>)</li>
+    <% }); %>
+  </ul>
+
+  <h3>Bus</h3>
+  <ul>
+    <% state.modesOfTransport.bus.forEach(busStop => { %>
+      <li><%= busStop.busStopName %> (<%= busStop.busStopCode %>)</li>
+    <% }); %>
+  </ul>
+
+  <h2>Todos</h2>
+  <ul>
+    <% if (todo[0]?.ttd && todo[0].ttd?.length > 0) { %>
+      <% todo[0].ttd.forEach(td => { %>
+        <li><p><%= td.name %> of type <%= td.type %></p></li>
+      <% }); %>
+    <% } else { %>
+      <li>No todos found</li>
+    <% } %>
+  </ul>
+  
+  <button onclick="window.location.href='/admin/create-todo/<%= state._id %>'">Add New Todo</button>
+</body>
+</html>
