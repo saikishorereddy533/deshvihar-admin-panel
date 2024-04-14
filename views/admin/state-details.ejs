@@ -85,7 +85,8 @@ button:hover {
       <li><%= busStop.busStopName %> (<%= busStop.busStopCode %>)</li>
     <% }); %>
   </ul>
-
+  <h3>Location</h3>
+  <li><%= state.location %></li>
   <h2>Todos</h2>
   <ul>
     <% if (todo[0]?.ttd && todo[0].ttd?.length > 0) { %>

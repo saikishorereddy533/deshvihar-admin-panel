@@ -1,5 +1,10 @@
 const State = require("../models/State")
-
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({ 
+  cloud_name: process.env.cloud_name, 
+  api_key: process.env. api_key, 
+  api_secret:  process.env.api_secret 
+});
 exports.getIndex = (req, res, next) => {
 
     res.render("home/index");
@@ -46,9 +51,23 @@ exports.getIndex = (req, res, next) => {
       });
   };
 
-  exports.postCreateState = (req, res) => {
-    const { name, overview, area, languages, stdcode, airports, railwayStations, busStops } = req.body;
-    
+  exports.postCreateState = async (req, res) => {
+    const { name, overview, area, languages, stdcode, airports, railwayStations, busStops,location,names} = req.body;
+    const stateNames=names.split(',').map(value=>value.trim())
+    const images = req.files['images'];
+    const overviewImage = req.files['overviewImage']; // Assuming only one state image is uploaded
+    const thingstodoImage = req.files['thingstodoImage'];
+    const links=[]
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      const result = await cloudinary.uploader.upload(image.path);
+      console.log(`Uploaded image: ${result.url}, Name: ${name}`);
+      links.push(result.secure_url)
+  }
+  console.log(overviewImage[0].path)
+  const overviewImage_link= (await cloudinary.uploader.upload(overviewImage[0].path)).secure_url ;
+  const thingstodoImage_link=(await cloudinary.uploader.upload(thingstodoImage[0].path)).secure_url;
+  console.log(overviewImage_link)
     const newState = new State({
       name,
       overview,
@@ -60,8 +79,20 @@ exports.getIndex = (req, res, next) => {
         rail: railwayStations.split(',').map(station => ({ railwayStationName: station.trim() })),
         bus: busStops.split(',').map(busStop => ({ busStopName: busStop.trim() })),
       },
+      location,//added location parameter
+      stateSymbols:[],
+      stateImages :{
+        overviewImage: overviewImage_link,
+        thingstodoImage:thingstodoImage_link
+      }
     });
   
+    for (let i = 0; i < links.length; i++) {
+      newState.stateSymbols.push({
+          stateName: stateNames[i], // Push each state name
+          link: links[i] // Push corresponding link
+      });
+  }
     newState.save()
       .then(() => {
         console.log('State created successfully');

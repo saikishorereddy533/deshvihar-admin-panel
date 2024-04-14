@@ -121,8 +121,28 @@
                             <label for="busStops">Bus Stops:</label>
                             <input type="text" id="busStops" name="busStops" value="<%= state ? state.modesOfTransport.bus.map(busStop => busStop.busStopName).join(', ') : '' %>" required <% if (state) { %>readonly<% } %> >
                         </div>
-
-                        <button type="submit" class="btn btn-primary"><% if (state) { %>Update<% } else { %>Create<% } %> State</button>
+                        <div class="form-group">
+                            <label for="location">locations</label>
+                            <input type="text" id="location" name="location" value="<%= state ? state.location : '' %>" required <% if (state) { %>readonly<% } %> >
+                        </div>
+                        <div class="form-group">
+                            <label for="images">Images:</label>
+                            <input type="file" id="images" name="images" multiple required>
+                        </div>
+                        <div class="form-group">
+                            <label for="names">Names (comma-separated):</label>
+                            <input type="text" id="names" name="names" required>
+                            <small class="form-text text-muted"> names should be  entered comma-separated, e.g., "Name1, Name2, Name3"</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="overviewImage">overviewImage:</label>
+                            <input type="file" id="overviewImage" name="overviewImage" ><br><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="thingstodoImage">thingstodoImage:</label>
+                            <input type="file" id="thingstodoImage" name="thingstodoImage" ><br><br>
+                        </div>
+                       <button type="submit" class="btn btn-primary"><% if (state) { %>Update<% } else { %>Create<% } %> State</button>
                     </form>
                 </div>
             </section>

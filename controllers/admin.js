@@ -3,12 +3,13 @@ const State = require("../models/State")
 const mongoose = require('mongoose');
 const cloudinary = require("cloudinary").v2;
 const Feature = require("../models/Feature")
-
+const Image=require('../models/imageSchema')
+require("dotenv").config();
 // configure cloudinary        
 cloudinary.config({ 
-  cloud_name: 'dris02aop', 
-  api_key: '619521999647115', 
-  api_secret: '7o3LvPwyIYiSUWtQH96Ms44Dj4A' 
+  cloud_name: process.env.cloud_name, 
+  api_key: process.env. api_key, 
+  api_secret:  process.env.api_secret 
 });
 
 exports.addTodo = (req, res, next) => {
@@ -194,3 +195,36 @@ exports.getStateById = async (req, res, next) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+//adding new controller to add images of state ad city globally
+
+exports.imageUploder=async (req,res,next)=>{
+  try {
+    // Retrieve URLs of uploaded images from req.files
+    const stateImageUrl = req.files['stateImage'][0].path; // Assuming Multer saves the image to disk
+    const cityImageUrl = req.files['cityImage'][0].path; // Assuming Multer saves the image to disk
+
+    // Upload images to Cloudinary and obtain secure URLs
+    const stateImageCloudinary = await cloudinary.uploader.upload(stateImageUrl);
+    const cityImageCloudinary = await cloudinary.uploader.upload(cityImageUrl);
+
+    // Create a new document in the database with state and city names and image URLs
+    const newImage = new Image({
+        stateImage: stateImageCloudinary.secure_url,
+        cityImage: cityImageCloudinary.secure_url
+    });
+
+    // Save the new document
+    await newImage.save();
+
+    // Send the URLs of the uploaded images back to the client as JSON data
+    res.status(201).json({
+        stateImageUrl: stateImageCloudinary.secure_url,
+        cityImageUrl: cityImageCloudinary.secure_url
+    });
+} catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Server error' });
+}
+}

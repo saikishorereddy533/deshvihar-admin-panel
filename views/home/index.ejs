@@ -82,7 +82,7 @@ body {
             <section class="section states-section">
                 <div class="container">
                     <h2 class="section-title">List of States in India</h2>
-
+                   <div>
                     <ul class="state-list" id="stateList">
                       <li data-state="Andhra Pradesh">Andhra Pradesh</li>
                       <li data-state="Arunachal Pradesh">Arunachal Pradesh</li>
@@ -119,7 +119,10 @@ body {
                       <li data-state="Delhi">Delhi</li>
                       <li data-state="Puducherry">Puducherry</li>
                   </ul>
-                  
+                </div>
+                <div>
+                    <input type="text" placeholder="enter the city or state" id="create"  >
+                    <button onclick="handleInput()" class="btn btn-secondary">CREATE</button>
                 </div>
             </section>
         </article>
@@ -160,6 +163,13 @@ body {
             }
         });
 
+
+        //added a function foe handling inputs to store in variable
+        function handleInput(e){
+            let selectedState=document.getElementById("create").value
+            console.log(`selected state : ${selectedState}`)
+            window.location.href = `/states/${selectedState}`;
+        }
         </script>
 </body>
 

@@ -45,6 +45,18 @@ const stateSchema = new mongoose.Schema({
       busStopCode: String,
     }],
   },
+  stateSymbols:[
+    {
+     stateName:{type:String,required:true},
+     link:{type:String,required:true}
+    },
+  ],
+  stateImages:{
+    overviewImage: {type: String,default:''}, 
+    thingstodoImage:{type: String,default:''},
+  }
+ ,
+  location:{type:String}, // added location parameter each state
   todoId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Todos', // Reference to the Todos model

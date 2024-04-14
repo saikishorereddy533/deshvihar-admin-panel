@@ -43,5 +43,8 @@ router.post("/addFeature/:stateId", upload.fields(fields), adminController.postF
 
 router.get("/get-all-states",adminController.getAllStates)
 
+//added a new router to store state and city images
+router.get('/uploadImage',(req,res,next)=>{res.render('admin/imageUploader')})
 
+router.post('/uploadImage',upload.fields([{ name:'stateImage', maxCount: 1 }, { name:'cityImage', maxCount: 1 }]),adminController.imageUploder)
 module.exports = router;

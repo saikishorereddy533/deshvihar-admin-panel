@@ -91,7 +91,7 @@ app.use("/admin",adminRoutes);
 app.use(errorController.get404);
 
 
-app.listen(process.env.PORT ||80 ,()=>{
+app.listen(process.env.PORT ||3000 ,()=>{
   console.log("server running...")
 })
 

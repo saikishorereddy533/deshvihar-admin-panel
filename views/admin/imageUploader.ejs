@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Images</title>
+</head>
+<body>
+    <h1>Upload State and City Images</h1>
+    <form method="POST" action="/admin/uploadImage" enctype="multipart/form-data">
+        
+        
+        <label for="stateImage">State Image:</label>
+        <input type="file" id="stateImage" name="stateImage" required><br><br>
+
+        
+        <label for="cityImage">City Image:</label>
+        <input type="file" id="cityImage" name="cityImage" required><br><br>
+
+        <button type="submit">Upload Images</button>
+    </form>
+</body>
+</html>
