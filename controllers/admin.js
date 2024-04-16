@@ -157,8 +157,8 @@ exports.postFeatureToTodo = async (req, res, next) => {
 exports.getAllStates = async (req, res) => {
   try {
     // Fetch all states from the database
-    const states = await State.find({}, { name: 1, _id: 1 });
-
+    const states = await State.find({}, { name: 1, _id: 1,location:1 });
+      console.log(states)
     // If no states found, send 404 Not Found status
     if (!states || states.length === 0) {
       return res.status(404).json({ message: 'No states found' });
