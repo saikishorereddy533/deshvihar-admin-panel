@@ -144,10 +144,14 @@
                         </div>
                        <button type="submit" class="btn btn-primary"><% if (state) { %>Update<% } else { %>Create<% } %> State</button>
                     </form>
+                   <a href="/admin/create-todo/<%= state?._id%> ">
+            todo          
+                  </a>
                 </div>
             </section>
         </article>
     </main>
+    
 
     <!-- Include the Footer component -->
     <%- include('../includes/footer.ejs') %>

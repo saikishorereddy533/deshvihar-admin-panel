@@ -16,7 +16,7 @@ exports.getIndex = (req, res, next) => {
       const stateName = req.params.stateName;
   
       // Find the state by name
-      const state = await State.findOne({ name: stateName });
+      const state = await State.findOne({ name: stateName }).populate('todoId');
   
       if (!state) {
         return res.status(404).json({ error: 'State not found' });
