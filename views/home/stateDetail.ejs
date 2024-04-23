@@ -144,9 +144,8 @@
                         </div>
                        <button type="submit" class="btn btn-primary"><% if (state) { %>Update<% } else { %>Create<% } %> State</button>
                     </form>
-                   <a href="/admin/create-todo/<%= state?._id%> ">
-            todo          
-                  </a>
+                    <% if (state) { %><a href="/admin/create-todo/<%= state?._id%> "> Attach Todo  </a><% }  %>
+                 
                 </div>
             </section>
         </article>
