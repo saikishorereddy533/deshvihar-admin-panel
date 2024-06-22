@@ -101,6 +101,6 @@ exports.getIndex = (req, res, next) => {
         res.redirect('/'); // Redirect to the home page or wherever you want
     } catch (err) {
         console.error('Error creating state:', err);
-        res.render('create-state', { errors: ['Error creating state. Please try again.'] });
+        res.render('home/stateDetail', { errors: ['Error creating state. Please try again.'] });
     }
 };
