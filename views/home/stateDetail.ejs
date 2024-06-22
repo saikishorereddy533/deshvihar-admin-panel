@@ -88,7 +88,7 @@
                     <h2 class="form-title"><% if (state) { %>Edit<% } else { %>Create New<% } %> State</h2>
 
                     <!-- State creation/edit form -->
-                    <form action="/states/create" method="POST">
+                    <form action="/states/create" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" id="name" name="name" value="<%= stateName ? stateName : '' %>" required readonly  %> >
@@ -159,6 +159,51 @@
         <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
     </a>
 
+    <script>
+        document.getElementById('stateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+    
+            // Create FormData object to collect form data
+            var formData = new FormData(this);
+    
+            // Send formData via AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/states/create');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Handle successful response
+                    console.log('File(s) uploaded successfully');
+                } else {
+                    // Handle error
+                    console.error('Error uploading file(s)');
+                }
+            };
+            xhr.send(formData);
+        });
+    </script>
+<script>
+    document.getElementById('stateForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Create FormData object to collect form data
+        var formData = new FormData(this);
+
+        // Send formData via AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/states/create');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Handle successful response
+                console.log('File(s) uploaded successfully');
+            } else {
+                // Handle error
+                console.error('Error uploading file(s)');
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
+    
     <script src="/js/script.js" defer></script>
 
     <!-- Ionicon link -->

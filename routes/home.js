@@ -4,19 +4,27 @@ const homeController = require("../controllers/home");
 const isAuthenticated = require("../middleware/isAuthenticated")
 
 const router = express.Router();
-const storage = multer.diskStorage({});
 
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image/")) {
-    cb(null, true);
-  } else {
-    cb(new Error("Only image files are allowed!"), false);
+// configure multer storage
+const storage = multer.diskStorage({
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + file.originalname);
   }
-};
+});
 
+// configure multer upload
 const upload = multer({
   storage: storage,
-  fileFilter: fileFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 5 // 5MB max file size
+  },
+  fileFilter: function(req, file, cb) {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed'));
+    }
+  }
 });
 
 router.get("/", homeController.getIndex);
